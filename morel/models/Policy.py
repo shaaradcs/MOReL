@@ -41,7 +41,8 @@ class ActorCriticPolicy(nn.Module):
         self.h1_actv = activation()
         self.value_head = nn.Linear(n_neurons, 1)
 
-        self.var = torch.nn.Parameter(torch.tensor([0.0,0.0]).cuda(), requires_grad = True)
+        # self.var = torch.nn.Parameter(torch.tensor([0.0,0.0]).cuda(), requires_grad = True)
+        self.var = torch.nn.Parameter(torch.zeros((output_dim)).cuda(), requires_grad = True)
 
         self.mean_activation = nn.Tanh()
         # self.var_activation = nn.Softplus()
@@ -545,7 +546,7 @@ class PPO2():
                 summary_writer.add_scalar('Metrics/entropy', entropy, update*n_steps)
                 summary_writer.add_scalar('Metrics/approx_kl', approx_kl, update*n_steps)
                 summary_writer.add_scalar('Metrics/max_reward', sum(info["episode_rewards"])/len(info["episode_rewards"]), update*n_steps)
-                summary_writer.add_scalar('Metricshalt_per_episode', info["HALT"]/len(info["episode_rewards"]), step = update*n_steps)
+                summary_writer.add_scalar('Metricshalt_per_episode', info["HALT"]/len(info["episode_rewards"]), update*n_steps)
 
             # Comet
             if(comet_experiment is not None):

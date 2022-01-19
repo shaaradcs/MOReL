@@ -101,7 +101,7 @@ class Morel():
             total_rewards.extend(info["episode_rewards"])
 
             if(self.tensorboard_writer is not None):
-                self.tensorboard_writer.add_scalar('Metrics/eval_episode_reward', sum(info["episode_rewards"])/len(info["episode_rewards"]), step = i)
+                self.tensorboard_writer.add_scalar('Metrics/eval_episode_reward', sum(info["episode_rewards"])/len(info["episode_rewards"]), i)
 
             if(self.comet_experiment is not None):
                 self.comet_experiment.log_metric('eval_episode_reward', sum(info["episode_rewards"])/len(info["episode_rewards"]), step = i)
